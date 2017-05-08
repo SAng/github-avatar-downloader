@@ -9,7 +9,13 @@ var GITHUB_TOKEN = 'fb2211804cddbe1adfa17b53f17c8260b01fe140';
 function getRepoContributors(repoOwner, repoName, cb) {
   var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
   console.log(requestURL);
-}
+  request(requestURL, function(err, response, body) {
+    if (err) throw err;
+    console.log(body);
+
+  });
+};
+
 
 getRepoContributors("jquery", "jquery", function(err, result) {
   console.log("Errors:", err);
