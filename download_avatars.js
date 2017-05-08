@@ -6,7 +6,7 @@ var GITHUB_USER = 'boomerandzapper';
 var GITHUB_TOKEN = 'fb2211804cddbe1adfa17b53f17c8260b01fe140';
 
 function getRepoContributors(repoOwner, repoName, cb) {
-  var requestURL = 'https://'+ GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
+  var requestURL = 'https://' + GITHUB_USER + ':' + GITHUB_TOKEN + '@api.github.com/repos/' + repoOwner + '/' + repoName + '/contributors';
   var options = {
     url: requestURL,
     headers: {
@@ -14,16 +14,14 @@ function getRepoContributors(repoOwner, repoName, cb) {
     }
   };
   request(options, function(err, response, body) {
-    if (err) throw err;
+    if (err) { throw err; }
     cb(err, (JSON.parse(body)));
   });
-};
-
-
+}
 
 getRepoContributors("jquery", "jquery", function(err, result) {
   console.log("Errors:", err);
   result.forEach(function (result) {
     console.log(result.avatar_url);
-  })
+  });
 });
