@@ -1,5 +1,7 @@
 var request = require('request');
 var fs = require('fs');
+var repoOwner = process.argv[2];
+var repoName = process.argv[3];
 
 console.log('Welcome to the GitHub Avatar Downloader!');
 
@@ -33,8 +35,13 @@ function getRepoContributors(repoOwner, repoName, cb) {
   });
 }
 
-getRepoContributors("jquery", "jquery", function(err, result) {
-  console.log("Errors:", err);
+getRepoContributors(repoOwner, repoName, function(err, result) {
+  if (!repoOwner && !repoName) {
+    console.log('Please specify Repo Owner and Repo Name');
+    return;
+  }
+  !err ? errmsg = "none" : errmsg = err;
+  console.log("Errors:", errmsg);
   result.forEach(function (result) {
     downloadImageByURL(result.avatar_url, 'avatars/' + result.login + '.jpg');
   });
